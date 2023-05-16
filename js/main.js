@@ -94,6 +94,12 @@ posts.forEach(element => {
                             </div>`;
 
 
+                            if (element.author.img === null){
+
+                                const newImg = document.createElement('img');
+
+                            }
+
 });
 
 
@@ -101,7 +107,7 @@ posts.forEach(element => {
 const btnLikes = document.getElementsByClassName('like-button');
 
 // Creo array per post selezionati
-let arrayLikedPosts = [];
+const arrayLikedPosts = [];
 
 // Ciclo array btn like
 for(let i = 0; i < btnLikes.length; i++){
@@ -113,11 +119,20 @@ for(let i = 0; i < btnLikes.length; i++){
     const btnLikesIesimo = btnLikes[i];
 
     // Collego elemento con likes dal DOM
-    let counterLikes = document.getElementById(`like-counter-${postsIesimo.likes}`);
+    const counterLikes = document.getElementById(`like-counter-${postsIesimo.likes}`);
+
+    // Setto lo stato del bottone su false
+    let clickState = false;
 
     // Aggiungo bottone ad ogni elemento dell'array btnlikes
     btnLikesIesimo.addEventListener('click',
         function(){
+
+        //   se stato false passa a true al click
+            if(!clickState){
+
+                // passa a true
+            clickState = true;
 
             // Aggiungo classe per bottone verde
             btnLikesIesimo.classList.add('like-button--liked');
@@ -125,12 +140,30 @@ for(let i = 0; i < btnLikes.length; i++){
             // Aumento l'oggetto nell'array di 1
             postsIesimo.likes++;
 
-            // Cambio nel DOM i likes
-            counterLikes.innerHTML = postsIesimo.likes;
-
             // Pusho nell'array creato i post con ID
             arrayLikedPosts.push(postsIesimo.id);
             console.log(arrayLikedPosts);
+
+                // altrimenti se stato è a true passa a false al click
+            }else if (clickState) {
+
+                // passa a false
+                clickState = false;  
+
+                // Tolgo classe per bottone verde
+            btnLikesIesimo.classList.remove('like-button--liked');
+
+            // Diminuisco l'oggetto nell'array di 1
+            postsIesimo.likes--;
+
+            // Poppo dall'array creato i post con ID
+            arrayLikedPosts.pop(postsIesimo.id);
+            console.log(arrayLikedPosts);
+            } 
+            
+            // Cambio nel DOM i likes
+            counterLikes.innerHTML = postsIesimo.likes;
+
         }
     )
 }
