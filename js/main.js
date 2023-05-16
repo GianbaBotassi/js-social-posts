@@ -59,11 +59,10 @@ const posts = [
 // Collego container post-meta
 const elPostMeta = document.getElementById('container');
 
-
 // Ciclo forEach per spammare post con dati relativi ad array
 posts.forEach(element => {
 
-elPostMeta.innerHTML += `<div class="post">
+    elPostMeta.innerHTML += `<div class="post">
                             <div class="post__header">
                                 <div class="post-meta">                    
                                     <div class="post-meta__icon">
@@ -82,20 +81,65 @@ elPostMeta.innerHTML += `<div class="post">
                             <div class="post__footer">
                                 <div class="likes js-likes">
                                     <div class="likes__cta">
-                                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                                        <a class="like-button  js-like-button" data-postid="${element.id}">
                                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                                             <span class="like-button__label">Mi Piace</span>
                                         </a>
                                     </div>
                                     <div class="likes__counter">
-                                        Piace a <b id="like-counter-1" class="js-likes-counter">${element.likes}</b> persone
+                                        Piace a <b id="like-counter-${element.likes}" class="js-likes-counter">${element.likes}</b> persone
                                     </div>
                                 </div> 
                             </div>            
-                            </div>`
-    
+                            </div>`;
+
+
 });
 
 
+// Creo array degli elementi con classe like-button
+const btnLikes = document.getElementsByClassName('like-button');
 
-                    
+// Creo array per post selezionati
+let arrayLikedPosts = [];
+
+// Ciclo array btn like
+for(let i = 0; i < btnLikes.length; i++){
+
+    // setto posizione in array posts
+    const postsIesimo = posts[i];
+
+    // Setto posizione in array btnlikes
+    const btnLikesIesimo = btnLikes[i];
+
+    // Collego elemento con likes dal DOM
+    let counterLikes = document.getElementById(`like-counter-${postsIesimo.likes}`);
+
+    // Aggiungo bottone ad ogni elemento dell'array btnlikes
+    btnLikesIesimo.addEventListener('click',
+        function(){
+
+            // Aggiungo classe per bottone verde
+            btnLikesIesimo.classList.add('like-button--liked');
+
+            // Aumento l'oggetto nell'array di 1
+            postsIesimo.likes++;
+
+            // Cambio nel DOM i likes
+            counterLikes.innerHTML = postsIesimo.likes;
+
+            // Pusho nell'array creato i post con ID
+            arrayLikedPosts.push(postsIesimo.id);
+            console.log(arrayLikedPosts);
+        }
+    )
+}
+
+
+
+
+
+
+
+
+
