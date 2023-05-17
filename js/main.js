@@ -100,13 +100,6 @@ posts.forEach(element => {
                             </div>            
                             </div>`;
 
-
-
-
-
-
-
-
 });
 
 
@@ -128,12 +121,16 @@ for(let i = 0; i < btnLikes.length; i++){
     // Collego elemento con likes dal DOM
     const counterLikes = document.getElementById(`like-counter-${postsIesimo.likes}`);
 
+    console.log(counterLikes);
     // Setto lo stato del bottone su false
     let clickState = false;
 
     // Aggiungo bottone ad ogni elemento dell'array btnlikes
     btnLikesIesimo.addEventListener('click',
-        function(){
+        function(event){
+
+            // Prevent default
+            event.preventDefault();
 
         //   se stato false passa a true al click
             if(!clickState){
@@ -149,7 +146,6 @@ for(let i = 0; i < btnLikes.length; i++){
 
             // Pusho nell'array creato i post con ID
             arrayLikedPosts.push(postsIesimo.id);
-            console.log(arrayLikedPosts);
 
                 // altrimenti se stato è a true passa a false al click
             }else if (clickState) {
@@ -169,19 +165,18 @@ for(let i = 0; i < btnLikes.length; i++){
 
             // Poppo dall'array creato i post con ID
             arrayLikedPosts.splice(index, 1);
-            console.log(arrayLikedPosts);
 
             } 
             
             // Cambio nel DOM i likes
             counterLikes.innerHTML = postsIesimo.likes;
 
+            // Log per l'array dei post con like
+            console.log(arrayLikedPosts);
+
         }
     )
 }
-
-
-
 
 
 
