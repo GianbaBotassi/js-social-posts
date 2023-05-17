@@ -104,7 +104,7 @@ posts.forEach(element => {
 
 
 // Creo array degli elementi con classe like-button
-const btnLikes = document.getElementsByClassName('like-button');
+const btnLikes = document.querySelectorAll('.like-button');
 
 // Creo array per post selezionati
 const arrayLikedPosts = [];
@@ -119,9 +119,8 @@ for(let i = 0; i < btnLikes.length; i++){
     const btnLikesIesimo = btnLikes[i];
 
     // Collego elemento con likes dal DOM
-    const counterLikes = document.getElementById(`like-counter-${postsIesimo.likes}`);
+    const counters = document.querySelectorAll('.js-likes-counter');
 
-    console.log(counterLikes);
     // Setto lo stato del bottone su false
     let clickState = false;
 
@@ -134,20 +133,19 @@ for(let i = 0; i < btnLikes.length; i++){
 
         //   se stato false passa a true al click
             if(!clickState){
-
                 // passa a true
             clickState = true;
 
             // Aggiungo classe per bottone verde
             btnLikesIesimo.classList.add('like-button--liked');
 
-            // Aumento l'oggetto nell'array di 1
-            postsIesimo.likes++;
+            // Cambio nel DOM counter likes e lo sommo di 1
+            counters[i].innerHTML = ++posts[i].likes;
 
             // Pusho nell'array creato i post con ID
             arrayLikedPosts.push(postsIesimo.id);
 
-                // altrimenti se stato è a true passa a false al click
+            // altrimenti se stato è a true passa a false al click
             }else if (clickState) {
 
                 // passa a false
@@ -156,21 +154,18 @@ for(let i = 0; i < btnLikes.length; i++){
                 // Tolgo classe per bottone verde
             btnLikesIesimo.classList.remove('like-button--liked');
 
-            // Diminuisco l'oggetto nell'array di 1
-            postsIesimo.likes--;
+            // Cambio nel DOM counter likes e lo sommo di 1
+            counters[i].innerHTML = --posts[i].likes;
 
             // Ricavo la posizione index per poterla usare in slice
             const index = arrayLikedPosts.indexOf(postsIesimo.id);
             // console.log(index);
 
-            // Poppo dall'array creato i post con ID
+            // Tolgo dall'array creato i post con ID
             arrayLikedPosts.splice(index, 1);
 
             } 
             
-            // Cambio nel DOM i likes
-            counterLikes.innerHTML = postsIesimo.likes;
-
             // Log per l'array dei post con like
             console.log(arrayLikedPosts);
 
@@ -181,7 +176,61 @@ for(let i = 0; i < btnLikes.length; i++){
 
 
 
+// Opzione con forEach da rivedere
 
+// Seleziono nel DOM il contatore likes
+// const counters = document.querySelectorAll('.js-likes-counter');
+
+
+// Ciclo forEach
+// btnLikes.forEach((element, i) => {
+//     element.addEventListener('click',
+//     function(event){
+
+//         // Dichiaro stato btn like
+//         let btnstate = false;
+
+//         // Prevengo automatismo bottone
+//         event.preventDefault();
+
+//         if(!btnstate){
+//             console.log(btnstate);
+
+//         // Stato passa a true
+//         btnstate = true;
+//         console.log(btnstate);
+
+//         // Aggiungo classe btn clickato
+//         element.classList.add('like-button--liked')
+
+//         // Cambio nel DOM counter likes e lo sommo di 1
+//         counters[i].innerHTML = ++posts[i].likes;
+
+//         // Aggiungo ad array post con like
+//         arrayLikedPosts.push(posts[i].id);
+
+//         }else if(btnstate){
+//             console.log(btnstate);
+
+//         // Stato passa a false
+//         btnstate = false;
+
+//         // Aggiungo classe btn clickato
+//         element.classList.remove('like-button--liked')
+
+//         // Cambio nel DOM counter likes e lo sommo di 1
+//         counters[i].innerHTML = --posts[i].likes;
+        
+//         let posizione = arrayLikedPosts.indexOf(posts[i].id);
+
+//         // console.log(posizione);
+//         // Tolgo ad array post con like
+//         arrayLikedPosts.slice(posizione, 1);
+//         }
+
+//         console.log(arrayLikedPosts);
+//     })
+// });
 
 
 
