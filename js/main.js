@@ -62,6 +62,13 @@ const elPostMeta = document.getElementById('container');
 // Ciclo forEach per spammare post con dati relativi ad array
 posts.forEach(element => {
 
+    // Inverto formato data
+    const newDate = element.created.split('-').reverse().join('-');
+
+    // Cambio data in array principale
+    element.created = newDate;
+
+
     elPostMeta.innerHTML += `<div class="post">
                             <div class="post__header">
                                 <div class="post-meta">                    
@@ -94,11 +101,11 @@ posts.forEach(element => {
                             </div>`;
 
 
-                            if (element.author.img === null){
 
-                                const newImg = document.createElement('img');
 
-                            }
+
+
+
 
 });
 
@@ -172,6 +179,8 @@ for(let i = 0; i < btnLikes.length; i++){
         }
     )
 }
+
+
 
 
 
