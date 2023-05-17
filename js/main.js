@@ -156,9 +156,14 @@ for(let i = 0; i < btnLikes.length; i++){
             // Diminuisco l'oggetto nell'array di 1
             postsIesimo.likes--;
 
+            // Ricavo la posizione index per poterla usare in slice
+            const index = arrayLikedPosts.indexOf(postsIesimo.id);
+            // console.log(index);
+
             // Poppo dall'array creato i post con ID
-            arrayLikedPosts.pop(postsIesimo.id);
+            arrayLikedPosts.splice(index, 1);
             console.log(arrayLikedPosts);
+
             } 
             
             // Cambio nel DOM i likes
